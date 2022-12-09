@@ -4,6 +4,16 @@ const smallEl = document.getElementById('infoMessage')
 
 const blockContentEl = document.querySelector('#billMain')
 
+
+let token = window.sessionStorage.getItem("token")
+
+parsedToken = parseJwt(token)
+
+console.log(parsedToken)
+
+document.getElementById('daftarTagihanOccupant').href = `/user/PaymentDeadline/${parsedToken.OccupantId}`
+
+
 $.ajax({
     url: `https://localhost:7095/api/transaction/paymentdeadline/${occupantId}`,
     type: 'GET',

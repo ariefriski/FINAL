@@ -1,4 +1,13 @@
-﻿$(document).ready(function () {
+﻿let token = window.sessionStorage.getItem("token")
+
+parsedToken = parseJwt(token)
+
+console.log(parsedToken)
+
+document.getElementById('daftarTagihanOccupant').href = `/user/PaymentDeadline/${parsedToken.OccupantId}`
+
+
+$(document).ready(function () {
     $('#ListKeluhan').DataTable({
 
         ajax: {
