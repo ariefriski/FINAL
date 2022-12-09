@@ -190,7 +190,7 @@ namespace MenKosAPI.Repositories.Data
             var uniqueFileName = FileHelper.GetUniqueFileName(newTransaction.Image.FileName);
 
 
-            var uploads = Path.Combine(@"D:\MetroData\TestVS\Kosan\ENDGAME\ManajemenKos-endgame\MenKosClient\wwwroot", "users", "payment", newTransaction.NIK.ToString());
+            var uploads = Path.Combine(@"C:\Users\panji\Documents\panji\MCC\EndGame\MenKosClient\wwwroot", "users", "payment", newTransaction.NIK.ToString());
 
 
             var filePath = Path.Combine(uploads, uniqueFileName);
@@ -405,7 +405,7 @@ namespace MenKosAPI.Repositories.Data
             var uniqueFileName = FileHelper.GetUniqueFileName(extendTransaction.Image.FileName);
 
 
-            var uploads = Path.Combine(@"D:\MetroData\TestVS\Kosan\ENDGAME\ManajemenKos-endgame\MenKosClient\wwwroot", "users", "extend", extendTransaction.RoomId.ToString());
+            var uploads = Path.Combine(@"C:\Users\panji\Documents\panji\MCC\EndGame\MenKosClient\wwwroot", "users", "extend", extendTransaction.RoomId.ToString());
 
 
             var filePath = Path.Combine(uploads, uniqueFileName);

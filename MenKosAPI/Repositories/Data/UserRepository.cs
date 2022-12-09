@@ -22,7 +22,7 @@ namespace MenKosAPI.Repositories.Data
 
         public string Login(LoginVM loginVM)
         {
-            var data = _context.Users.Include(x => x.Role).FirstOrDefault(x => x.Email == loginVM.Email);
+            var data = _context.Users.Include(x => x.Role).Include(x => x.Occupant).FirstOrDefault(x => x.Email == loginVM.Email);
             //var vp =;
             if (data != null)
             {
@@ -36,6 +36,7 @@ namespace MenKosAPI.Repositories.Data
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Email",data.Email),
                         new Claim("Role",data.Role.Name),
+                        new Claim("OccupantId", data.Occupant.Id.ToString())
                     };
 
                     var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
