@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Informasi Kamar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+@section Scripts{
+    <script src="~/lib/assets/js/plugins/datatables/jquery.dataTables.min.js" defer></script>
+    <script src="~/lib/assets/js/plugins/datatables/dataTables.bootstrap4.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="~/js/room.js" defer></script>
+
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">INFORMASI KAMAR</h1>
+</div>
+<div class="content">
+    <!-- Overview -->
+    <h2 class="content-heading">Overview</h2>
+    <div class="row gutters-tiny">
+        <!-- All Products -->
+        <div class="col-md-6 col-xl-3">
+            <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
+                <div class="block-content block-content-full block-sticky-options">
+                    <div class="block-options">
+                        <div class="block-options-item">
+                            <i class="fa fa-circle-o fa-2x text-info-light"></i>
+                        </div>
+                    </div>
+                    <div class="py-20 text-center" id="countData">
+                        @*<div class="font-size-sm font-w600 text-uppercase text-muted">*@
+                            @*<button onclick="getLength()">Alert the number of li elements ROOM </button>*@
+                        @*</div> *@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- END All Products -->
+        <!-- Top Sellers -->
+        <div class="col-md-6 col-xl-3">
+            <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
+                <div class="block-content block-content-full block-sticky-options">
+                    <div class="block-options">
+                        <div class="block-options-item">
+                            <i class="fa fa-star fa-2x text-warning-light"></i>
+                        </div>
+                    </div>
+                    <div class="py-20 text-center" id="Ada" >
+                       @* <div class="font-size-h2 font-w700 mb-0 text-warning" data-toggle="countTo" data-to="0"></div>
+                        <div class="font-size-sm font-w600 text-uppercase text-muted">AVAILABLE</div>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- END Top Sellers -->
+        <!-- Out of Stock -->
+        <div class="col-md-6 col-xl-3">
+            <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
+                <div class="block-content block-content-full block-sticky-options">
+                    <div class="block-options">
+                        <div class="block-options-item">
+                            <i class="fa fa-warning fa-2x text-danger-light"></i>
+                        </div>
+                    </div>
+                    <div class="py-20 text-center" id="Gakada">
+                      @*  <div class="font-size-h2 font-w700 mb-0 text-danger" data-toggle="countTo" data-to="0"></div>
+                        <div class="font-size-sm font-w600 text-uppercase text-muted">UNAVALAIBLE</div>*@
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- END Out of Stock -->
+        <!-- Add Product -->
+        <div class="col-md-6 col-xl-3">
+            <a class="block block-rounded block-link-shadow" data-toggle="modal" data-target="#modCreate" onclick="addRoom()" >
+                <div class="block-content block-content-full block-sticky-options">
+                    <div class="block-options">
+                        <div class="block-options-item">
+                            <i class="fa fa-archive fa-2x text-success-light"></i>
+                        </div>
+                    </div>
+                    <div class="py-20 text-center">
+                        <div class="font-size-h2 font-w700 mb-0 text-success">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">NEW ROOM</div>
+                    </div>
+                        
+                </div>
+            </a>
+        </div>
+        <!-- END Add Product -->
+    </div>
+    <div class="row">
+        <div class="col">
+                <div id="stats"></div>
+        </div>
+
+            <div class="col">
+                <div id="chart"></div>
+            </div>
+    </div>
+       
+    <!-- END Overview -->
+    <!-- Dynamic Table Full -->
+    <div class="modal fade" id="modCreate" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Room &amp; Information</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                       <div id="roomCreate">
+
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-alt-success" data-toggle="modal" data-target="modal-popout" onclick="saveRoom()">
+                        <i class="fa fa-check"></i> Perfect
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Bootstrap Forms Validation -->
+        <!-- Pop Out Modal -->
+        <div class="modal fade" id="modal-popout" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-popout" role="document">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-primary-dark">
+                            <h3 class="block-title">Room &amp; Information</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="si si-close"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div id="displayDetail">
+
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                       @* <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-alt-success" data-toggle="modal" data-target="modal-popout">
+                            <i class="fa fa-check"></i> Perfect
+                        </button*@>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Pop Out Modal -->
+        <div class="block-content block-content-full">
+            <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
+            <table id="roomData" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                <thead>
+                    <tr>
+                        @*<th class="text-center"></th>*@
+                        <th>Nama Kamar</th>
+                        <th>FLOOR</th>
+                        <th class="d-none d-sm-table-cell">PRICE</th>
+                        <th class="d-none d-sm-table-cell" style="width: 15%;">FINISHED</th>
+                        <th class="text-center" style="width: 15%;">STATUS</th>
+                        <th class="text-center" style="width: 15%;">DESCRIPTION</th>
+                        <th class="text-center" style="width: 15%;">ACTION</th>
+                    </tr>
+                </thead>
+               @* <tbody>
+                    <div id="roomData"></div>
+                </tbody>*@
+            </table>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->

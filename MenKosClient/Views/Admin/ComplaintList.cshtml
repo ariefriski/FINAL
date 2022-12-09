@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Transaksi Pembayaran";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/lib/assets/js/plugins/datatables/jquery.dataTables.min.js" defer></script>
+    <script src="~/lib/assets/js/plugins/datatables/dataTables.bootstrap4.min.js" defer></script>
+
+    <!-- Page JS Plugins -->
+    <script src="~/lib/assets/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/lib/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/assets/js/plugins/jquery-validation/additional-methods.js"></script>
+
+    <!-- Page JS Helpers (Select2 plugin) -->
+    <script>jQuery(function () { Codebase.helpers('select2'); });</script>
+
+    <script src="~/js/Complaint.js" defer></script>
+
+}
+
+<div class="block-content">
+
+    <div id="chart">
+    </div>
+    <table class="table table-hover table-vcenter" id="ListKeluhanAdmin">
+
+        <thead>
+            <tr>
+                <th class="text-center" style="width: 50px;">#</th>
+                <th>Keluhan</th>
+                <th class="d-none d-sm-table-cell" style="width: 15%;">Status</th>
+                <th class="d-none d-sm-table-cell" style="width: 15%;">Id Kamar</th>
+                <th class="text-center" style="width: 100px;">Jawab</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*<tr>
+            <th class="text-center" scope="row">1</th>
+            <td>Listrik kamar 202 Lantai 3 Suka Jepret, mohon follow up nya !!!</td>
+            <td class="d-none d-sm-table-cell">
+            <span class="badge badge-success">Selesai</span>
+            </td>
+            <td class="text-center">
+            <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+            <i class="si si-envelope-letter"></i>
+            </button>
+            </div>
+            </td>
+
+            </tr>*@
+            @*   <tr>
+            <th class="text-center" scope="row">2</th>
+            <td>Kapan jaringan internet bisa digunakan kembali ?</td>
+            <td class="d-none d-sm-table-cell">
+            <span class="badge badge-warning">Menunggu</span>
+            </td>
+            <td class="text-center">
+            <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+            <i class="si si-clock"></i>
+            </button>
+            </div>
+            </td>
+            </tr>*@
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<div class="modal fade" id="terjawab" tabindex="-1" role="dialog" aria-labelledby="modal-popout" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popout" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-content">
+                    <div class="form-material">
+                        <textarea class="form-control" id="jawabanKeluhanAdmin" name="material-textarea-large" rows="8" placeholder="Please add a comment" disabled></textarea>
+                        <label for="material-textarea-large">Jawaban dari Admin</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

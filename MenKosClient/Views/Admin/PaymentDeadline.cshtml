@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "Transaksi Pembayaran";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/lib/assets/js/plugins/datatables/jquery.dataTables.min.js" defer></script>
+    <script src="~/lib/assets/js/plugins/datatables/dataTables.bootstrap4.min.js" defer></script>
+
+    <script src="~/js/paymentDeadline.js" defer></script>
+
+}
+
+
+
+    <div class="content">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Data <small>Daftar kamar yang butuh perpanjang</small></h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="pinned_toggle">
+                        <i class="si si-pin"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">
+                        <i class="si si-close"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content">
+
+
+                <div class="text-right">
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-11">
+
+                            <table id="deadlineTable" class="table table-bordered table-striped table-vcenter js-dataTable-full text-center">
+                                <thead class="table-dark text-light">
+                                    <tr>
+                                        <th>Kamar</th>
+                                        <th>Nama Penghuni</th>
+                                        <th>No Hp</th>
+                                        <th>Tanggal Keluar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-striped">
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Tambah Transaksi Penghuni Baru</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div class="block">
+
+                            <div class="block-content">
+
+
+
+                                <form id="transactionForm">
+                                    <h2 class="pt-20 mt-30 ">Data Diri Penghuni</h2>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantNIK" name="NIK">
+                                                <label for="occupantNIK">NIK</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantName" name="Name">
+                                                <label for="occupantName">Nama</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12">Jenis Kelamin</label>
+                                        <div class="col-12">
+                                            <div class="custom-control custom-radio custom-control-inline mb-5">
+                                                <input class="custom-control-input" type="radio" name="Gender" id="genderPria" value="pria" checked>
+                                                <label class="custom-control-label" for="genderPria">Pria</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline mb-5">
+                                                <input class="custom-control-input" type="radio" name="Gender" id="genderWanita" value="wanita">
+                                                <label class="custom-control-label" for="genderWanita">Wanita</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantContact" name="Contact">
+                                                <label for="occupantContact">Nomor HP</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantCity" name="City">
+                                                <label for="occupantCity">Kota</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantReligion" name="Religion">
+                                                <label for="occupantReligion">Agama</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="occupantBirthDate">Tanggal Lahir</label>
+                                        <div class="col-md-9">
+                                            <input type="date" id="occupantBirthDate" name="BirthDate" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <h2 class="pt-20 mt-30 ">Buat Akun</h2>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="email" class="form-control" id="userEmail" name="Email">
+                                                <label for="userEmail">Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="password" class="form-control" id="userPassword" name="Password">
+                                                <label for="userPassword">Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2 class="pt-20 mt-30 ">Sewa Kamar</h2>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Pilih Kamar</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="selectedRoom" name="RoomId">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Pilih Tanggal Masuk</label>
+                                        <div class="col-md-9">
+                                            <input type="date" id="entryDate" name="EntryDate" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Periode Sewa (bulan)</label>
+                                        <div class="col-md-9">
+                                            <input type="number" id="rentPeriod" name="rentPeriod" value="1" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-disabled-input">Tanggal Keluar</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" id="outDate" name="OutDate" value="" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material">
+                                                <input type="text" class="form-control" value="0" id="totalAmount" name="Amount" disabled>
+                                                <label for="material-disabled">Total Amount</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    @*             <div class="form-group row">
+                                <div class="col-md-9">
+                                <button type="submit" class="btn btn-alt-primary">Submit</button>
+                                </div>
+                                </div>*@
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Tutup</button>
+                        <button id="saveBtn" type="button" class="btn btn-alt-success" data-dismiss="modal">
+                            <i class="fa fa-check"></i> Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,262 @@
+﻿@{
+    ViewData["Title"] = "Transaksi Pembayaran";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/lib/assets/js/plugins/datatables/jquery.dataTables.min.js" defer></script>
+    <script src="~/lib/assets/js/plugins/datatables/dataTables.bootstrap4.min.js" defer></script>
+
+    <!-- Page JS Plugins -->
+    <script src="~/lib/assets/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/lib/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/assets/js/plugins/jquery-validation/additional-methods.js"></script>
+
+    <!-- Page JS Helpers (Select2 plugin) -->
+    <script>jQuery(function () { Codebase.helpers('select2'); });</script>
+
+    <script src="~/js/transaction.js" defer></script>
+
+}
+
+
+    <div class="content">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">Data <small>Transaksi Pembayaran</small></h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="pinned_toggle">
+                        <i class="si si-pin"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">
+                        <i class="si si-close"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="block-content">
+
+
+
+                <button type="button" class="btn btn-success mr-5 " data-toggle="modal" data-target="#modal-large">
+                    <i class="fa fa-plus mr-5"></i> Tambah Transaksi Penghuni Baru
+                </button>
+
+                <div class="text-right">
+
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-11">
+
+                            <table id="paymentTable" class="table table-bordered table-striped table-vcenter js-dataTable-full text-center">
+                                <thead class="table-dark text-light">
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Jumlah Uang</th>
+                                        <th>Bukti Bayar</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Tanggal Keluar</th>
+                                        <th>Tanggal Pembayaran</th>
+                                        <th>Status</th>
+                                        <th class="w-10">Aksi</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="table-striped">
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Tambah Transaksi Penghuni Baru</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div class="block">
+
+                            <div class="block-content">
+
+
+
+                                <form id="transactionForm" novalidate>
+                                    <h2 class="pt-20 mt-30 ">Data Diri Penghuni</h2>
+                                    <div class="form-group row is-invalid">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantNIK" name="NIK">
+                                                <label for="occupantNIK">NIK</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantName" name="Name">
+                                                <label for="occupantName">Nama</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12">Jenis Kelamin</label>
+                                        <div class="col-12">
+                                            <div class="custom-control custom-radio custom-control-inline mb-5">
+                                                <input class="custom-control-input" type="radio" name="Gender" id="genderPria" value="pria" checked>
+                                                <label class="custom-control-label" for="genderPria">Pria</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline mb-5">
+                                                <input class="custom-control-input" type="radio" name="Gender" id="genderWanita" value="wanita">
+                                                <label class="custom-control-label" for="genderWanita">Wanita</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantContact" name="Contact">
+                                                <label for="occupantContact">Nomor HP</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantCity" name="City">
+                                                <label for="occupantCity">Kota</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="occupantReligion" name="Religion">
+                                                <label for="occupantReligion">Agama</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="occupantBirthDate">Tanggal Lahir</label>
+                                        <div class="col-md-9">
+                                            <input type="date" id="occupantBirthDate" name="BirthDate" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <h2 class="pt-20 mt-30 ">Buat Akun</h2>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="email" class="form-control" id="userEmail" name="Email">
+                                                <label for="userEmail">Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material floating">
+                                                <input type="password" class="form-control" id="userPassword" name="Password">
+                                                <label for="userPassword">Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2 class="pt-20 mt-30 ">Sewa Kamar</h2>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="selectedRoom">Pilih Kamar</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="selectedRoom" name="RoomId">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Pilih Tanggal Masuk</label>
+                                        <div class="col-md-9">
+                                            <input type="date" id="entryDate" name="EntryDate" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Periode Sewa (bulan)</label>
+                                        <div class="col-md-9">
+                                            <input type="number" id="rentPeriod" name="rentPeriod" value="1" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-disabled-input">Tanggal Keluar</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" id="outDate" name="OutDate" value="" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <div class="form-material">
+                                                <input type="text" class="form-control" value="0" id="totalAmount" name="Amount" disabled>
+                                                <label for="material-disabled">Total Amount</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2 class="pt-20 mt-30 ">Bukti Bayar</h2>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="example-select">Tanggal Pembayaran</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" id="paymentDate" name="PaymentDate" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-12" for="Image">Foto Butki Bayar</label>
+                                        <div class="col-md-9">
+                                            <input type="file" id="Image" name="Image" class="form-control" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Tutup</button>
+                                        <button id="saveBtn" type="submit" class="btn btn-alt-success">
+                                            <i class="fa fa-check"></i> Simpan
+                                        </button>
+                                    </div>
+
+
+
+                                </form>
+                                @*             <div class="form-group row">
+                            <div class="col-md-9">
+                            <button type="submit" class="btn btn-alt-primary">Submit</button>
+                            </div>
+                            </div>*@
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>

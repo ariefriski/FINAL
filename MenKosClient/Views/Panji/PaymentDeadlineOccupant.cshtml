@@ -1,0 +1,109 @@
+﻿@model int
+
+@{
+
+    ViewData["Title"] = "Pembayaran Kos";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts{
+    <script src="~/lib/assets/js/plugins/datatables/jquery.dataTables.min.js" defer></script>
+    <script src="~/lib/assets/js/plugins/datatables/dataTables.bootstrap4.min.js" defer></script>
+    <script src="~/js/paymentDeadlineOccupant.js" defer></script>
+
+}
+
+
+
+    <div class="content">
+        <div class="block">
+            <div class="block-header block-header-default">
+                <h3 class="block-title"><small id="infoMessage"></small></h3>
+                <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="pinned_toggle">
+                        <i class="si si-pin"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                        <i class="si si-refresh"></i>
+                    </button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="close">
+                        <i class="si si-close"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="billMain" class="block-content d-none" data-occupantId=@Model.ToString() >
+
+                <div>
+                   
+
+                    <div class="row justify-content-center">
+                        <div class="col-11">
+
+                            <form id="extendRoomForm" method="post">
+                                <h2 class="pt-20 mt-30 ">Perpanjang Kamar</h2>
+
+                                <div class="form-group row">
+                                    <label class="col-12" for="example-select">Sewa Baru Berlaku Pada Tanggal</label>
+                                    <div class="col-md-9">
+                                        <input type="date" id="entryDate" name="EntryDate" class="form-control" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-12" for="example-select">Periode Sewa (bulan)</label>
+                                    <div class="col-md-9">
+                                        <input type="number" id="rentPeriod" name="rentPeriod" value="1" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-12" for="example-disabled-input">Sewa Berakhir Pada Tanggal</label>
+                                    <div class="col-md-9">
+                                        <input type="date" class="form-control" id="outDate" name="OutDate" value="" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-9">
+                                        <div class="form-material">
+                                            <input type="text" class="form-control" value="0" id="totalAmount" name="Amount" disabled>
+                                            <label for="material-disabled">Total Amount</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2 class="pt-20 mt-30 ">Bukti Bayar</h2>
+
+                                <div class="form-group row">
+                                    <label class="col-12" for="example-select">Tanggal Pembayaran</label>
+                                    <div class="col-md-9">
+                                        <input type="date" class="form-control" id="paymentDate" name="PaymentDate" value="" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-12" for="example-select">Foto Butki Bayar</label>
+                                    <div class="col-md-9">
+                                        <input type="file" id="Image" name="Image" class="form-control"  required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button id="saveBtn" type="submit" class="btn btn-alt-success" data-dismiss="modal">
+                                        <i class="fa fa-check"></i> Kirim
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
