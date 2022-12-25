@@ -208,7 +208,7 @@ namespace MenKosAPI.Repositories.Data
             var uniqueFileName = FileHelper.GetUniqueFileName(createRoomVM.Image.FileName);
 
 
-            var uploads = Path.Combine(@"D:\MetroData\TestVS\Kosan\ENDGAME\ManajemenKos-endgame\MenKosClient\wwwroot", "users", "roomPicture");
+            var uploads = Path.Combine(@"D:\MetroData\TestVS\Kosan\ENDGAME\ManajemenKos-endgame\FINAL\MenKosClient\wwwroot", "users", "roomPicture");
 
 
             var filePath = Path.Combine(uploads, uniqueFileName);
