@@ -56,6 +56,7 @@
                             <table id="paymentTable" class="table table-bordered table-striped table-vcenter js-dataTable-full text-center">
                                 <thead class="table-dark text-light">
                                     <tr>
+                                        <th>No.</th>
                                         <th>Nama</th>
                                         <th>Jumlah Uang</th>
                                         <th>Bukti Bayar</th>
@@ -105,10 +106,10 @@
 
                                 <form id="transactionForm" novalidate>
                                     <h2 class="pt-20 mt-30 ">Data Diri Penghuni</h2>
-                                    <div class="form-group row is-invalid">
+                                    <div class="form-group row">
                                         <div class="col-md-9">
                                             <div class="form-material floating">
-                                                <input type="text" class="form-control" id="occupantNIK" name="NIK">
+                                                <input type="text" class="form-control" id="occupantNIK" name="NIK" required>
                                                 <label for="occupantNIK">NIK</label>
                                             </div>
                                         </div>
@@ -116,7 +117,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-9">
                                             <div class="form-material floating">
-                                                <input type="text" class="form-control" id="occupantName" name="Name">
+                                                <input type="text" class="form-control" id="occupantName" name="Name" required>
                                                 <label for="occupantName">Nama</label>
                                             </div>
                                         </div>

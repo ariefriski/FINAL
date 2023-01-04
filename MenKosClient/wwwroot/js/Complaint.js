@@ -177,7 +177,7 @@ function InputJawabanId(Id, Masalah, Kamar) {
     var Id = parseInt(Id);
     var Problem = Masalah;
     var CreatedAt = "2022-12-09T01:27:35.944";
-    var RoomId = 4;
+    var RoomId = 1010;
     var Reply = $('#menjawabKeluhan').val();
     var Status = true;
     var data = { Id, CreatedAt, Problem, Reply, Status, RoomId };
@@ -190,8 +190,14 @@ function InputJawabanId(Id, Masalah, Kamar) {
         data: JSON.stringify(data),
         //cache: false,
         success: function () {
-            alert("sukses");
-            window.location.reload();
+            Swal.fire(
+                'Terkirim!',
+                'Pertanyaan Dijawab!',
+                'success'
+            );
+            setTimeout(function () {
+                location.reload();
+            }, 1000);
         }, error: function (jqXHR, status) {
             console.log(jqXHR.responseJSON)
             console.log(jqXHR)
@@ -209,7 +215,7 @@ $(document).ready(function () {
         var Problem = $('#buatKeluhan').val();
         var Reply = null;
         var Status = false;
-        var RoomId = 4;
+        var RoomId = 1010;
         var data = { CreatedAt, Problem, Reply, Status, RoomId };
         $.ajax({
             url: "https://localhost:7095/api/Complaint/",
@@ -219,8 +225,14 @@ $(document).ready(function () {
             data: JSON.stringify(data),
             //cache: false,
             success: function () {
-                alert("Sukses");
-                window.location.reload();
+                Swal.fire(
+                    'Terkirim!',
+                    'Pertanyaan Dibuat!',
+                    'success'
+                );
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
             }, error: function () {
             }
         })

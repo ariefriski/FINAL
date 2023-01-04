@@ -439,7 +439,7 @@
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="link-effect text-dual-primary-dark" href="op_auth_signin.html">
+                                <a class="link-effect text-dual-primary-dark"  href="/index">
                                     <i class="si si-logout"></i>
                                 </a>
                             </li>
@@ -452,11 +452,11 @@
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
                         <li>
-                            <a href="be_pages_dashboard2.html"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
-                        </li>
-                        <li>
                             <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">Admin</span></a>
                             <ul>
+                                <li>
+                                    <a class="nav-submenu"  href="/admin/"><span class="sidebar-mini-hide">Daftar Kamar</span></a>
+                                </li>
                                 <li>
                                     <a class="nav-submenu"  href="/admin/Transaction"><span class="sidebar-mini-hide">Daftar Transaksi</span></a>
                                 </li>
@@ -609,7 +609,7 @@
                             <!-- END Side Overlay -->
 
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="op_auth_signin.html">
+                            <a class="dropdown-item" href="/">
                                 <i class="si si-logout mr-5"></i> Sign Out
                             </a>
                         </div>
@@ -783,7 +783,7 @@
     -->
     <script src="~/lib/assets/js/codebase.app.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"</script>
     <!-- Page JS Plugins -->
     <script src="~/lib/assets/js/plugins/chartjs/Chart.bundle.min.js"></script>
 
@@ -793,6 +793,15 @@
    @* <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>*@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script language="javascript">
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    $('#entryDate').attr('min',today);
+</script>
 
     @RenderSection("Scripts", false);
 

@@ -10,6 +10,12 @@ $(document).ready(function () {
         },
         columns: [
             {
+                data: null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
+            {
                 data: "Order.Occupant.Name",
                 render: (data, type, row, meta) => {
                     return data;
@@ -25,7 +31,7 @@ $(document).ready(function () {
             {
                 data: null,
                 "render": function (data, type, row, meta) {
-                    return `<img src="${data.ProofPayment}" width="350" >`;
+                    return `<img src="${data.ProofPayment}" width="120" >`;
                 }
             },
             {

@@ -49,6 +49,7 @@
         //    }
         //})
         columns: [
+
             {
                 data: 'Id', name: 'Id',
                 "render": function (data, type, row, meta) {
@@ -65,17 +66,29 @@
             },
             {   
                 data: 'Payment.Order.OutDate', name: 'Order.OutDate',
-                "render": function (data, type, row, meta) {
-                    if (data== null) {
-                        return `<p>Kosong</p>`
+                render: (data) => {
+                    if (data == null) {
+                        return '-';
                     } else {
-                        return `<p>${data}</p>`
+                        return new Date(data).toLocaleDateString('id-ID', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        });
                     }
-
                 }
             },
             {
                 data: 'Status',
+                "render": function (data, type, row, meta) {
+                    if (data == true) {
+                        return `Terisi`
+                    } else {
+                        return `Kosong`
+                    }
+
+                }
             },
             {
                 data: 'Description',
@@ -139,11 +152,17 @@ $(document).ready(function () {
                 //});
                 $.each(allRoomKosongWithPicture, function(key, val) {
                     console.log(val)
+                    const rupiah = (number) => {
+                        return new Intl.NumberFormat("id-ID", {
+                            style: "currency",
+                            currency: "IDR"
+                        }).format(number);
+                    }
                     temp += `<div class="col-md-6 col-xl-4 js-appear-enabled animated fadeIn" data-toggle="appear">
                     <div class="block block-rounded">
                     <div class="block-content p-0 overflow-hidden">
-                        <a class="img-link" href="be_pages_real_estate_listing.html">
-                            <img class="img-fluid rounded-top"  src="${val.Name}" alt="">
+                        <a class="img-link" href="#">
+                            <img  style="width:500px;height:250px;"  src="${val.Name}" alt="">
                         </a>
                         </a>
                     </div>
@@ -154,33 +173,15 @@ $(document).ready(function () {
                             <i class="fa fa-map-pin mr-5"></i> Fasilitas : ${val.Facility}
                         </p>
                         <p class="text-muted">
-                            <i class="fa fa-dollar mr-5"></i> Harga : ${val.RoomPrice.Price}
+                            Harga : ${rupiah(val.RoomPrice.Price)}
                         </p>
                     </div>
-                    <div class="block-content border-bottom">
-                        <div class="row">
-                            <div class="col-6">
-                                <p>
-                                    <i class="fa fa-fw fa-bed text-muted mr-5"></i> <strong>2</strong> Bedrooms
-                                </p>
-                            </div>
-                            <div class="col-6">
-                                <p>
-                                    <i class="fa fa-fw fa-bath text-muted mr-5"></i> <strong>1</strong> Bathroom
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="block-content block-content-full">
                         <div class="row">
-                            <div class="col-6">
-                                <a class="btn btn-sm btn-hero btn-noborder btn-secondary btn-block" asp-controller="Landing" asp-action="RentDetail">
-                                    Details
-                                </a>
-                            </div>
-                            <div class="col-6">
-                                <a class="btn btn-sm btn-hero btn-noborder btn-primary btn-block" href="be_pages_real_estate_listing_new.html">
-                                    Edit
+                            <div class="col-12">
+                                <a class="btn btn-sm btn-hero btn-noborder btn-secondary btn-block" style="background-color:#25D366;color:black" href="https://api.whatsapp.com/send?phone=6281932481580">
+                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>  Pesan Via Whatsapp
                                 </a>
                             </div>
                         </div>
@@ -372,7 +373,7 @@ function editDetailKamar(id) {
                                         <a class="nav-link active" href="#wizard-simple2-step1" data-toggle="tab">1. Facility</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#wizard-simple2-step3" data-toggle="tab">3. Picture</a>
+                                        <a class="nav-link" href="#wizard-simple2-step3" data-toggle="tab" onclick="getImage(${id})">2. Picture</a>
                                     </li>
                                 </ul>
 
@@ -449,12 +450,12 @@ function saveEditKamar(id) {
         success: function () {
             Swal.fire(
                 'Good job!',
-                'You clicked the button!',
+                'Data berhasil diUpdate!',
                 'success'
             );
             setTimeout(function () {
                 location.reload();
-            }, 5000);
+            }, 500);
         }, error: function () {
 
         }
@@ -462,20 +463,47 @@ function saveEditKamar(id) {
 }
 
 function deleteFacility(id) {
-    $.ajax({
-        url: `https://localhost:7095/api/Room/${id}`,
-        type: "DELETE",
-        success: function (data) {
-            Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-            );
-            setTimeout(function () {
-                location.reload();
-            }, 5000);
+    return new Swal({
+        title: 'Hapus Data Kamar?',
+        text: 'Data yang dihapus tidak dapat dikembalikan!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Tidak, Simpan!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: `https://localhost:7095/api/Room/${id}`,
+                type: "DELETE", // <- Change here
+                contentType: "application/json",
+                success: function (data) {
+                    return new swal({
+                        title: 'Success!',
+                        type: 'success',
+                        timer: '1500'
+                    }).then(function () {
+                        location.reload();
+                    });
+
+                },
+                error: function () {
+                    swal({
+                        title: 'Oops...',
+                        type: 'error',
+                        timer: '1500'
+                    })
+                }
+            });
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
         }
-    });
+    })
+
 }
 
 function addRoom() {
@@ -651,7 +679,7 @@ function saveRoom() {
         success: function () {
             Swal.fire(
                 'Good job!',
-                'You clicked the button!',
+                'Data Berhasil Ditambahkan!',
                 'success'
             );
             setTimeout(function () {
