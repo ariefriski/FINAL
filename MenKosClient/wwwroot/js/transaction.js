@@ -22,7 +22,7 @@ $(document).ready(function () {
                 }
             },
             {
-                data: 'Amount',
+                data: 'Order.RoomId',
                 render: (data) => {
                     return data;
                 }

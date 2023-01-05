@@ -429,8 +429,8 @@
                             <img class="img-avatar" src="~/lib/assets/media/avatars/avatar15.jpg" alt="">
                         </a>
                         <ul class="list-inline mt-10">
-                            <li class="list-inline-item">
-                                <a class="link-effect text-dual-primary-dark font-size-xs font-w600 text-uppercase" href="be_pages_generic_profile.html">J. Smith</a>
+                            <li class="list-inline-item" >
+                                <a class="link-effect text-dual-primary-dark font-size-xs font-w600 text-uppercase" id="LoginName"></a>
                             </li>
                             <li class="list-inline-item">
                                 <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -455,7 +455,7 @@
                             <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">User</span></a>
                             <ul>
                                 <li>
-                                    <a id="daftarTagihanOccupant" class="nav-submenu" href="/user/PaymentDeadline/1"><span class="sidebar-mini-hide">Daftar Tagihan Kamar</span></a>
+                                    <a id="daftarTagihanOccupant" class="nav-submenu" href="#"><span class="sidebar-mini-hide">Daftar Tagihan Kamar</span></a>
                                 </li>
                                 <li>
                                     <a class="nav-submenu" href="/user/index"><span class="sidebar-mini-hide">Daftar Keluhan</span></a>
@@ -578,7 +578,7 @@
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user d-sm-none"></i>
-                            <span class="d-none d-sm-inline-block">J. Smith</span>
+                            <span class="d-none d-sm-inline-block" id="NameLoginTop"></span>
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
@@ -789,7 +789,18 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="~/js/helper.js"></script>
+    
+    <script type="text/javascript">
+        let token = window.sessionStorage.getItem("token")
 
+        parsedToken = parseJwt(token)
+
+        console.log(parsedToken)
+
+        document.getElementById('daftarTagihanOccupant').href = `/user/PaymentDeadline/${parsedToken.OccupantId}`
+        document.getElementById('LoginName').text = `${parsedToken.OccupantName}`
+        document.getElementById('NameLoginTop').textContent = `${parsedToken.OccupantName}`
+        </script>
 
 
     @RenderSection("Scripts", false);

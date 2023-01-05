@@ -36,7 +36,8 @@ namespace MenKosAPI.Repositories.Data
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("Email",data.Email),
                         new Claim("Role",data.Role.Name),
-                        new Claim("OccupantId", data.Occupant.Id.ToString())
+                        new Claim("OccupantId", data.Occupant.Id.ToString()),
+                        new Claim("OccupantName", data.Occupant.Name)
                     };
 
                     var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
